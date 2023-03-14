@@ -12,86 +12,63 @@
 // **MILESTONE 3**
 // Al click dell'utente sulle frecce, il programma cambierà l’immagine attiva, che quindi verrà visualizzata al posto della precedente.
 
-
-// QUI HO LE IMMAGINI
-const imagesArray = ["img/01.jpg", "img/02.jpg", "img/03.jpg", "img/04.jpg", "img/05.jpg"]
-
-const itemsContainer = document.querySelector(".slider-items")
+const imagesArray = ["img/01.jpg", "img/02.jpg", "img/03.jpg", "img/04.jpg", "img/05.jpg"];
+const itemsContainer = document.querySelector(".slider-items");
+const itemsArray = document.getElementsByClassName("item");
+const thumbnailsContainer = document.querySelector(".thumbnails");
+const thumbnailsArray = document.getElementsByClassName("thumbnail");
+let activeItemIndex = 0;
 
 for (let i = 0; i < imagesArray.length; i++) {
-    const currentImage = imagesArray[i];
+  const currentImage = imagesArray[i];
+  const sliderItem = `
+    <div class="item">
+      <img src="${currentImage}" alt="">
+    </div>`;
+  const thumbnailItem = `
+    <div class="thumbnail">
+      <img src="${currentImage}" alt="">
+    </div>`;
 
-    const sliderItem = `
-        <div class = "item">
-            <img src="${currentImage}" alt="">
-        </div>`;
-
-    itemsContainer.innerHTML += sliderItem;
+  itemsContainer.innerHTML += sliderItem;
+  thumbnailsContainer.innerHTML += thumbnailItem;
 }
 
-
-
-
-const itemsArray = document.getElementsByClassName("item")
-console.log(itemsArray);
-
-
-
-let activeItemIndex = 0;
-itemsArray[activeItemIndex].classList.add("active"); 
-
+itemsArray[activeItemIndex].classList.add("active");
+thumbnailsArray[activeItemIndex].classList.add("active-thumbnail");
 
 const prevBtn = document.querySelector(".prev");
 const nextBtn = document.querySelector(".next");
 
-
 nextBtn.addEventListener("click", function () {
 
+  itemsArray[activeItemIndex].classList.remove("active");
 
-    prevBtn.classList.remove("hidden")
+  thumbnailsArray[activeItemIndex].classList.remove("active-thumbnail");
 
-    if (activeItemIndex < (itemsArray.length - 1)) {
+  activeItemIndex++;
 
+  if (activeItemIndex === itemsArray.length) {
+    activeItemIndex = 0;
+  }
 
-        itemsArray[activeItemIndex].classList.remove("active");
-
-
-        activeItemIndex++;
-
-
-        itemsArray[activeItemIndex].classList.add("active");
-
-
-
-
-        if (activeItemIndex === itemsArray.length - 1) {
-            nextBtn.classList.add("hidden");
-        }
-    }
-
+  itemsArray[activeItemIndex].classList.add("active");
+  thumbnailsArray[activeItemIndex].classList.add("active-thumbnail");
 });
-
-
-
-prevBtn.classList.add("hidden");
-
 
 prevBtn.addEventListener("click", function () {
 
-    nextBtn.classList.remove("hidden");
+  itemsArray[activeItemIndex].classList.remove("active");
 
+  thumbnailsArray[activeItemIndex].classList.remove("active-thumbnail");
 
+  activeItemIndex--;
 
-    itemsArray[activeItemIndex].classList.remove("active");
+  if (activeItemIndex === -1) {
+    activeItemIndex = itemsArray.length - 1;
+  }
 
+  itemsArray[activeItemIndex].classList.add("active");
+  thumbnailsArray[activeItemIndex].classList.add("active-thumbnail");
+});
 
-    activeItemIndex--;
-
-
-    itemsArray[activeItemIndex].classList.add("active");
-    if (activeItemIndex === 0) {
-        prevBtn.classList.add("hidden")
-    }
-
-
-})
