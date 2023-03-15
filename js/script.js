@@ -7,68 +7,83 @@
 // **MILESTONE 2**
 // Adesso rimuoviamo tutto il markup statico e inseriamo tutte le immagini dinamicamente servendoci dell'array fornito e un semplice ciclo for che concatena un template literal.
 // Tutte le immagini saranno nascoste, tranne la prima, che avrà una classe specifica che la renderà visibile.
-// Al termine di questa fase ci ritroveremo con lo stesso slider stilato nella milestone 1, ma costruito dinamicamente attraverso JavaScript.
+// // Al termine di questa fase ci ritroveremo con lo stesso slider stilato nella milestone 1, ma costruito dinamicamente attraverso JavaScript.
 
-// **MILESTONE 3**
-// Al click dell'utente sulle frecce, il programma cambierà l’immagine attiva, che quindi verrà visualizzata al posto della precedente.
+// // **MILESTONE 3**
+// // Al click dell'utente sulle frecce, il programma cambierà l’immagine attiva, che quindi verrà visualizzata al posto della precedente.
 
-const imagesArray = ["img/01.jpg", "img/02.jpg", "img/03.jpg", "img/04.jpg", "img/05.jpg"];
-const itemsContainer = document.querySelector(".slider-items");
-const itemsArray = document.getElementsByClassName("item");
-const thumbnailsContainer = document.querySelector(".thumbnails");
-const thumbnailsArray = document.getElementsByClassName("thumbnail");
-let activeItemIndex = 0;
+ const imagesArray = ["img/01.jpg", "img/02.jpg", "img/03.jpg", "img/04.jpg", "img/05.jpg"];
+ const itemsContainer = document.querySelector(".slider-items");
+ const itemsArray = document.getElementsByClassName("item");
+ const thumbnailsContainer = document.querySelector(".thumbnails");
+ const thumbnailsArray = document.getElementsByClassName("thumbnail");
+ let activeItemIndex = 0;
 
-for (let i = 0; i < imagesArray.length; i++) {
-  const currentImage = imagesArray[i];
-  const sliderItem = `
-    <div class="item">
-      <img src="${currentImage}" alt="">
-    </div>`;
-  const thumbnailItem = `
-    <div class="thumbnail">
-      <img src="${currentImage}" alt="">
-    </div>`;
+ for (let i = 0; i < imagesArray.length; i++) {
+   const currentImage = imagesArray[i];
+   const sliderItem = `
+     <div class="item">
+       <img src="${currentImage}" alt="">
+     </div>`;
+   const thumbnailItem = `
+     <div class="thumbnail">
+       <img src="${currentImage}" alt="">
+     </div>`;
 
-  itemsContainer.innerHTML += sliderItem;
-  thumbnailsContainer.innerHTML += thumbnailItem;
-}
+   itemsContainer.innerHTML += sliderItem;
+   thumbnailsContainer.innerHTML += thumbnailItem;
+ }
 
-itemsArray[activeItemIndex].classList.add("active");
-thumbnailsArray[activeItemIndex].classList.add("active-thumbnail");
+ itemsArray[activeItemIndex].classList.add("active");
+ thumbnailsArray[activeItemIndex].classList.add("active-thumbnail");
 
-const prevBtn = document.querySelector(".prev");
-const nextBtn = document.querySelector(".next");
+ const prevBtn = document.querySelector(".prev");
+ const nextBtn = document.querySelector(".next");
 
-nextBtn.addEventListener("click", function () {
+ prevBtn.addEventListener("click", function () {
 
-  itemsArray[activeItemIndex].classList.remove("active");
+   itemsArray[activeItemIndex].classList.remove("active");
 
-  thumbnailsArray[activeItemIndex].classList.remove("active-thumbnail");
+   thumbnailsArray[activeItemIndex].classList.remove("active-thumbnail");
 
-  activeItemIndex++;
+   activeItemIndex--;
+  
+   if (activeItemIndex === -1) {
+     activeItemIndex = itemsArray.length - 1;
+   }
 
-  if (activeItemIndex === itemsArray.length) {
-    activeItemIndex = 0;
-  }
+   itemsArray[activeItemIndex].classList.add("active");
+   thumbnailsArray[activeItemIndex].classList.add("active-thumbnail");
+ });
 
-  itemsArray[activeItemIndex].classList.add("active");
-  thumbnailsArray[activeItemIndex].classList.add("active-thumbnail");
-});
+ nextBtn.addEventListener("click", function () {
 
-prevBtn.addEventListener("click", function () {
+   itemsArray[activeItemIndex].classList.remove("active");
 
-  itemsArray[activeItemIndex].classList.remove("active");
+   thumbnailsArray[activeItemIndex].classList.remove("active-thumbnail");
 
-  thumbnailsArray[activeItemIndex].classList.remove("active-thumbnail");
+   activeItemIndex++;
+  
+   if (activeItemIndex === itemsArray.length) {
+     activeItemIndex = 0;
+   }
 
-  activeItemIndex--;
+   itemsArray[activeItemIndex].classList.add("active");
+   thumbnailsArray[activeItemIndex].classList.add("active-thumbnail");
+ });
 
-  if (activeItemIndex === -1) {
-    activeItemIndex = itemsArray.length - 1;
-  }
+// // Crea un array vuoto.
+// Chiedi per 6 volte all’utente di inserire un numero,
+// se è dispari inseriscilo nell’array.
 
-  itemsArray[activeItemIndex].classList.add("active");
-  thumbnailsArray[activeItemIndex].classList.add("active-thumbnail");
-});
 
+// const numberArray = []
+
+// for (let i = 0; i < 6; i++) {
+//   const userNumber = prompt("inserisci un numero")
+  
+//   if (userNumber % 2 !== 0) {
+//     numberArray.push(userNumber)
+//     console.log(numberArray);
+//   }
+// }
